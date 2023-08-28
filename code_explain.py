@@ -50,11 +50,13 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 def get_prompt(
     message: str, system_prompt: str
 ) -> str:
-    texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
-    # for user_input, response in chat_history:
-    #     texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
-    texts.append(f"user provided code to explain:{message.strip()}\n please explain the above code.[/INST]")
-    return "".join(texts)
+    # texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
+    # # for user_input, response in chat_history:
+    # #     texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
+    # texts.append(f"user provided code to explain:{message.strip()}\n please explain the above code.[/INST]")
+    prompt=f"""[INST] please explain the user provided code in natural languge. Please wrap your code answer using ```. user provided code:{message}[/INST]"""
+
+    return prompt
 
 
 ## Load the Local Llama 2 model
@@ -77,8 +79,13 @@ def llama_model(model_id=None,model_basename=None,max_new_tokens=None,temperatur
    
 
 
-model_id="TheBloke/CodeLlama-7B-Instruct-GGML"
-model_basename="codellama-7b-instruct.ggmlv3.Q2_K.bin"
+# model_id="TheBloke/CodeLlama-7B-Instruct-GGML"
+# model_basename="codellama-7b-instruct.ggmlv3.Q2_K.bin"
+
+
+model_id="TheBloke/Llama-2-7B-Chat-GGML"
+model_basename="llama-2-7b-chat.ggmlv3.q4_0.bin"
+
 print(f"{model_name} Model Loading start")
 model=llama_model(model_id=model_id,model_basename=model_basename,temperature=temperature)
 print(f"{model_name}Load Model Successfully.")
