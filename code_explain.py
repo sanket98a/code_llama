@@ -50,11 +50,11 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 def get_prompt(
     message: str, system_prompt: str
 ) -> str:
-    # texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
+    texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
     # # for user_input, response in chat_history:
     # #     texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
-    # texts.append(f"user provided code to explain:{message.strip()}\n please explain the above code.[/INST]")
-    prompt=f"""[INST] please explain the user provided code in natural languge. Please wrap your code answer using ```. user provided code:{message}[/INST]"""
+    texts.append(f"user provided code to explain:{message.strip()}\n please explain the above code.[/INST]")
+    # prompt=f"""[INST] please explain the user provided code in natural languge. Please wrap your code answer using ```. user provided code:{message}[/INST]"""
 
     return prompt
 
