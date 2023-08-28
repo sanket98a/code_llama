@@ -53,7 +53,7 @@ def get_prompt(
     texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
     # for user_input, response in chat_history:
     #     texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
-    texts.append(f"user provided code to explain:{message.strip()}[/INST]")
+    texts.append(f"user provided code to explain:{message.strip()}\n please explain the above code.[/INST]")
     return "".join(texts)
 
 
