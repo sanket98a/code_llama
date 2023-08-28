@@ -56,7 +56,7 @@ def get_prompt(
     texts.append(f"user provided code to explain:{message.strip()}\n please explain the above code.[/INST]")
     # prompt=f"""[INST] please explain the user provided code in natural languge. Please wrap your code answer using ```. user provided code:{message}[/INST]"""
 
-    return prompt
+    return "".join(texts)
 
 
 ## Load the Local Llama 2 model
