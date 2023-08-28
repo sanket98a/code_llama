@@ -14,6 +14,7 @@ from huggingface_hub import hf_hub_download
 st.title("Affine-LocalGPT")
 
 history=[]
+
 if torch.cuda.is_available():
     device_type = "cuda:0"
 else:
@@ -47,11 +48,11 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
 # create the custom prompt
 def get_prompt(
-    message: str, chat_history: list[tuple[str, str]], system_prompt: str
+    message: str, system_prompt: str
 ) -> str:
     texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
-    for user_input, response in chat_history:
-        texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
+    # for user_input, response in chat_history:
+    #     texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
     texts.append(f"{message.strip()} [/INST]")
     return "".join(texts)
 
@@ -102,7 +103,7 @@ if prompt := st.chat_input("What is up?"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
-            final_prompt=get_prompt(prompt,history,DEFAULT_SYSTEM_PROMPT)
+            final_prompt=get_prompt(prompt,DEFAULT_SYSTEM_PROMPT)
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
