@@ -63,8 +63,8 @@ def llama_model(model_id=None,model_basename=None,max_new_tokens=None,temperatur
   
     kwargs = {
         "model_path": model_path,
-        "n_ctx": 1024,
-        "max_tokens": 1024,
+        "n_ctx": 2014,
+        "max_tokens": 2014,
         }
     if device_type.lower() == "mps":
         kwargs["n_gpu_layers"] = 25
