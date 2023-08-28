@@ -112,7 +112,7 @@ if prompt := st.chat_input("What is up?"):
             # for response in model.generate([final_prompt]):
             #     full_response += response
             #     message_placeholder.markdown(response + "▌")
-            message_placeholder.markdown(full_response)
+            message_placeholder.markdown(full_response[0][0]['text'])
             print(full_response)
         st.session_state.messages.append(
             {"role": "assistant", "content": full_response}
