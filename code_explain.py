@@ -27,19 +27,21 @@ DEFAULT_SYSTEM_PROMPT="""You are python coding assistant.Assist the user by expl
 if you don't know say, 'I don't Know the answer.'"""
 
 with st.sidebar:
-    model_name=st.selectbox("Select Model :-",['Llama 7B','Llama 13B'])
+    model_name=st.selectbox("Select Model :-",['Llama-2-7B-Chat','CodeLlama-7B-Instruct'])
     temperature=st.slider("Temperature :-",0.0,1.0,0.1)
     top_p=st.slider("top_p :-",0.0,1.0,0.95)
     top_k=st.slider("top_k :- ",0,100,50)
     DEFAULT_SYSTEM_PROMPT=st.text_area("System Prompt :-",f"{DEFAULT_SYSTEM_PROMPT}",height=400)
 
 # Load the selected model
-if model_name=="Llama 7B":
+if model_name=="Llama-2-7B-Chat":
     print("Llama 7B model Loading")
-    model_path='llama-2-7b-chat.ggmlv3.q4_0.bin'
+    model_id="TheBloke/Llama-2-7B-Chat-GGML"
+    model_basename="llama-2-7b-chat.ggmlv3.q4_0.bin"
 else:
-    print("Llama 13B model Loading")
-    model_path="llama-2-13b-chat.ggmlv3.q2_K.bin"
+    print("CodeLlama-7B-Instruct-GGML model Loading")
+    model_id="TheBloke/CodeLlama-7B-Instruct-GGML"
+    model_basename="codellama-7b-instruct.ggmlv3.Q2_K.bin"
 
 # prompt special tokens
 B_INST, E_INST = "[INST]", "[/INST]"
@@ -79,12 +81,10 @@ def llama_model(model_id=None,model_basename=None,max_new_tokens=None,temperatur
    
 
 
-# model_id="TheBloke/CodeLlama-7B-Instruct-GGML"
-# model_basename="codellama-7b-instruct.ggmlv3.Q2_K.bin"
 
 
-model_id="TheBloke/Llama-2-7B-Chat-GGML"
-model_basename="llama-2-7b-chat.ggmlv3.q4_0.bin"
+
+
 
 print(f"{model_name} Model Loading start")
 model=llama_model(model_id=model_id,model_basename=model_basename,temperature=temperature)
