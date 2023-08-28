@@ -53,7 +53,7 @@ def get_prompt(
     texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
     # for user_input, response in chat_history:
     #     texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
-    texts.append(f"{message.strip()} [/INST]")
+    texts.append(f"user provided code to explain:{message.strip()} assistant:[/INST]")
     return "".join(texts)
 
 
@@ -109,10 +109,11 @@ if prompt := st.chat_input("What is up?"):
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            for response in model.predict(final_prompt):
+            for response in model.generate(final_prompt):
                 full_response += response
                 message_placeholder.markdown(response + "▌")
             message_placeholder.markdown(full_response)
+            print(full_response)
         st.session_state.messages.append(
             {"role": "assistant", "content": full_response}
         )
