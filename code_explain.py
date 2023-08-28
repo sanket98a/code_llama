@@ -109,7 +109,7 @@ if prompt := st.chat_input("What is up?"):
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = ""
-            for response in model.generate(final_prompt):
+            for response in model.generate([final_prompt]):
                 full_response += response
                 message_placeholder.markdown(response + "▌")
             message_placeholder.markdown(full_response)
