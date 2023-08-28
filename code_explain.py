@@ -10,21 +10,18 @@ from langchain.callbacks import StreamlitCallbackHandler
 import textwrap
 import torch
 from huggingface_hub import hf_hub_download
+
 st.title("Affine-LocalGPT")
 
-
+history=[]
 if torch.cuda.is_available():
     device_type = "cuda:0"
 else:
     device_type = "cpu"
 
-history=[]
 
 # Default Sys Prompt
 # DEFAULT_SYSTEM_PROMPT = "You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature. If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information."
-
-# DEFAULT_SYSTEM_PROMPT="You are c# or .net coding assistant.please provide to the user explainability of code."
-
 DEFAULT_SYSTEM_PROMPT="""You are python coding assistant.Assist the user by explaining.
 if you don't know say, 'I don't Know the answer.'"""
 
@@ -38,7 +35,7 @@ with st.sidebar:
 # Load the selected model
 if model_name=="Llama 7B":
     print("Llama 7B model Loading")
-    model_path='codellama-7b-instruct.ggmlv3.Q2_K.bin'
+    model_path='llama-2-7b-chat.ggmlv3.q4_0.bin'
 else:
     print("Llama 13B model Loading")
     model_path="llama-2-13b-chat.ggmlv3.q2_K.bin"
@@ -55,8 +52,9 @@ def get_prompt(
     texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
     for user_input, response in chat_history:
         texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
-    texts.append(f"user provided code:\n{message.strip()} [/INST]")
+    texts.append(f"{message.strip()} [/INST]")
     return "".join(texts)
+
 
 ## Load the Local Llama 2 model
 def llama_model(model_id=None,model_basename=None,max_new_tokens=None,temperature=None):
@@ -76,6 +74,8 @@ def llama_model(model_id=None,model_basename=None,max_new_tokens=None,temperatur
     print("GGML Model Loaded Succesfully.")
     return LlamaCpp(**kwargs)
    
+
+
 model_path="TheBloke/CodeLlama-7B-Instruct-GGML"
 model_basename="codellama-7b-instruct.ggmlv3.Q2_K.bin"
 print(f"{model_name} Model Loading start")
