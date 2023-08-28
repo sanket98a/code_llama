@@ -76,10 +76,15 @@ def llama_model(model_id=None,model_basename=None,max_new_tokens=None,temperatur
     print("GGML Model Loaded Succesfully.")
     return LlamaCpp(**kwargs)
    
-
+model_path="TheBloke/CodeLlama-7B-Instruct-GGML"
+model_basename="codellama-7b-instruct.ggmlv3.Q2_K.bin"
 print(f"{model_name} Model Loading start")
-model=llama_model(model_path=model_path,temperature=temperature)
+model=llama_model(model_path=model_path,model_basename=model_basename,temperature=temperature)
 print(f"{model_name}Load Model Successfully.")
+
+# print(f"{model_name} Model Loading start")
+# model=llama_model(model_path=model_path,temperature=temperature)
+# print(f"{model_name}Load Model Successfully.")
 
 # if 'prompts' not in st.session_state:
 #     st.session_state.prompts = []
