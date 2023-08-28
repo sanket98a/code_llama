@@ -69,11 +69,11 @@ def llama_model(model_id=None,model_basename=None,max_new_tokens=None,temperatur
         "max_tokens": 2014,
         }
     if device_type.lower() == "mps":
-        kwargs["n_gpu_layers"] = 25
-    if device_type.lower() == "cuda:0":
         kwargs["n_gpu_layers"] = 20
-        kwargs["n_batch"] = 50
-        kwargs["temperature"] =0.7
+    if device_type.lower() == "cuda:0":
+        kwargs["n_gpu_layers"] = 15
+        kwargs["n_batch"] = 40
+        kwargs["temperature"] =temperature
     print("GGML Model Loaded Succesfully.")
     return LlamaCpp(**kwargs)
    
