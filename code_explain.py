@@ -77,10 +77,10 @@ def llama_model(model_id=None,model_basename=None,max_new_tokens=None,temperatur
    
 
 
-model_path="TheBloke/CodeLlama-7B-Instruct-GGML"
+model_id="TheBloke/CodeLlama-7B-Instruct-GGML"
 model_basename="codellama-7b-instruct.ggmlv3.Q2_K.bin"
 print(f"{model_name} Model Loading start")
-model=llama_model(model_path=model_path,model_basename=model_basename,temperature=temperature)
+model=llama_model(model_id=model_id,model_basename=model_basename,temperature=temperature)
 print(f"{model_name}Load Model Successfully.")
 
 # print(f"{model_name} Model Loading start")
@@ -104,6 +104,7 @@ if prompt := st.chat_input("What is up?"):
         with st.chat_message("user"):
             st.markdown(prompt)
             final_prompt=get_prompt(prompt,DEFAULT_SYSTEM_PROMPT)
+            print(final_prompt)
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
