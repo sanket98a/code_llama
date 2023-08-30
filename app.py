@@ -61,7 +61,7 @@ def get_prompt(
     texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
     # # for user_input, response in chat_history:
     # #     texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
-    texts.append(f"## User provided code to explain:{message.strip()}\n ## Please explain the above code, following the instructions given by user:\n {INSTRUCTION_PROMPT} return results using markdown.[/INST]")
+    texts.append(f"## User provided code to explain:{message.strip()}\n ## Please explain the above code, following the instructions given by user:\n {INSTRUCTION_PROMPT} Return results using markdown.[/INST]")
     # prompt=f"""[INST] please explain the user provided code in natural languge. Please wrap your code answer using ```. user provided code:{message}[/INST]"""
 
     return "".join(texts)
