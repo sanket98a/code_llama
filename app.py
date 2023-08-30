@@ -19,11 +19,11 @@ st.set_page_config(page_title="Home", page_icon=None, layout="centered",
 
 ## logo
 with st.sidebar:
-    st.markdown("""<div style='text-align: left; margin-top:-200px;margin-left:-40px;'>
+    st.markdown("""<div style='text-align: left; margin-top:-50px;margin-left:-40px;'>
     <img src="https://affine.ai/wp-content/uploads/2023/05/Affine-Logo.svg" alt="logo" width="300" height="60">
     </div>""", unsafe_allow_html=True)
 
-    
+
 st.markdown("""
     <div style='text-align: center; margin-top:-70px; margin-bottom: 5px;margin-left: -50px;'>
     <h2 style='font-size: 40px; font-family: Courier New, monospace;
