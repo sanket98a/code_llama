@@ -6,7 +6,7 @@ from huggingface_hub import login
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, pipeline
 import torch
 import streamlit as st
-
+import time
 access_token_read ="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"
 login(token = access_token_read)
 logging.info("Login Successfully.")
@@ -40,7 +40,7 @@ def get_prompt(
     texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
     # # for user_input, response in chat_history:
     # #     texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
-    texts.append(f"user provided code to explain:{message.strip()}\n please explain the above code, following the instructions given by user:\n {INSTRUCTION_PROMPT}.return results using markdown.[/INST]")
+    texts.append(f"user provided code to explain:{message.strip()}\n please explain the above code, following the instructions given by user:\n {INSTRUCTION_PROMPT} return results using markdown.[/INST]")
     # prompt=f"""[INST] please explain the user provided code in natural languge. Please wrap your code answer using ```. user provided code:{message}[/INST]"""
 
     return "".join(texts)
@@ -92,6 +92,7 @@ if prompt := st.chat_input("What is up?"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
+            start=time.time()
             final_prompt=get_prompt(prompt,DEFAULT_SYSTEM_PROMPT)
             token_size=get_input_token_length(final_prompt)
             print("Token ::",token_size)
@@ -100,11 +101,13 @@ if prompt := st.chat_input("What is up?"):
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
             full_response = model.predict(final_prompt)
+            end=time.time()
+            total_time=end-start
             # for response in model.generate([final_prompt]):
             #     full_response += response
             #     message_placeholder.markdown(response + "▌")
             message_placeholder.markdown(full_response)
-            print(full_response)
+            message_placeholder.markdown(f'```**Time**```::{total_time}')
         st.session_state.messages.append(
             {"role": "assistant", "content": full_response}
         )
