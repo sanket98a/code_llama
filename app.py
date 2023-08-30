@@ -93,7 +93,7 @@ def load_llm():
         model=model,
         tokenizer=tokenizer,
         max_new_tokens=1024,
-        temperature=0.7,
+        temperature=temperature,
         top_p=0.95,
         repetition_penalty=1.15
     )
@@ -129,6 +129,7 @@ if prompt := st.chat_input("What is up?"):
             #     full_response += response
             #     message_placeholder.markdown(response + "▌")
             message_placeholder.markdown(full_response)
+            print(full_response)
             time_placeholder.markdown(f'**Time** :: {round(total_time,2)} Sec.')
         st.session_state.messages.append(
             {"role": "assistant", "content": full_response}
