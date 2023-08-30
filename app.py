@@ -100,6 +100,7 @@ if prompt := st.chat_input("What is up?"):
 
         with st.chat_message("assistant"):
             message_placeholder = st.empty()
+            time_placeholder = st.empty()
             full_response = model.predict(final_prompt)
             end=time.time()
             total_time=end-start
@@ -107,7 +108,7 @@ if prompt := st.chat_input("What is up?"):
             #     full_response += response
             #     message_placeholder.markdown(response + "▌")
             message_placeholder.markdown(full_response)
-            message_placeholder.markdown(f'```**Time**```::{total_time}')
+            time_placeholder.markdown(f'**Time** :: {round(total_time,2)} Sec.')
         st.session_state.messages.append(
             {"role": "assistant", "content": full_response}
         )
