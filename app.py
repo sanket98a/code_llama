@@ -49,10 +49,10 @@ with st.sidebar:
     temperature=st.slider("Temperature :-",0.0,1.0,0.7)
     #top_p=st.slider("top_p :-",0.0,1.0,0.95)
     #top_k=st.slider("top_k :- ",0,100,50)
-    INSTRUCTION_PROMPT=st.text_area("User Instruction :-",f"{Instruction_prompt}",height=200)
+    INSTRUCTION_PROMPT=st.text_area("User Instruction :-",f"{Instruction_prompt}",height=100)
 
 DEFAULT_SYSTEM_PROMPT=f"""You are {language} coding assistant. Assist the user by explaining.
-if you don't know say, 'I don't Know the answer."""
+if you don't know say, 'I don't Know the answer. please follow the user instruction."""
 
 # create the custom prompt
 def get_prompt(
@@ -61,7 +61,7 @@ def get_prompt(
     texts = [f"[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n"]
     # # for user_input, response in chat_history:
     # #     texts.append(f"{user_input.strip()} [/INST] {response.strip()} </s><s> [INST] ")
-    texts.append(f"user provided code to explain:{message.strip()}\n please explain the above code, following the instructions given by user:\n {INSTRUCTION_PROMPT} return results using markdown.[/INST]")
+    texts.append(f"## User provided code to explain:{message.strip()}\n ## Please explain the above code, following the instructions given by user:\n {INSTRUCTION_PROMPT} return results using markdown.[/INST]")
     # prompt=f"""[INST] please explain the user provided code in natural languge. Please wrap your code answer using ```. user provided code:{message}[/INST]"""
 
     return "".join(texts)
