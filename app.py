@@ -11,7 +11,28 @@ access_token_read ="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"
 login(token = access_token_read)
 logging.info("Login Successfully.")
 
-st.title("Affine Code Explainer")
+# st.title("Affine Code Explainer")
+
+
+st.markdown("""
+    <div style='text-align: center; margin-top:-70px; margin-bottom: 5px;margin-left: -50px;'>
+    <h2 style='font-size: 40px; font-family: Courier New, monospace;
+                    letter-spacing: 2px; text-decoration: none;'>
+    <img src="https://acis.affineanalytics.co.in/assets/images/logo_small.png" alt="logo" width="70" height="60">
+    <span style='background: linear-gradient(45deg, #ed4965, #c05aaf);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            text-shadow: none;'>
+                    IntelliCodeEx
+    </span>
+    <span style='font-size: 40%;'>
+    <sup style='position: relative; top: 5px; color: #ed4965;'>by Affine</sup>
+    </span>
+    </h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+
 
 B_INST, E_INST = "[INST]", "[/INST]"
 B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n" 
